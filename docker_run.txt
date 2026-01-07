@@ -1,0 +1,20 @@
+# =============================================================================
+# BLOCO 2: Comando Docker para o Banco de Dados
+#
+# Execute o comando abaixo no seu terminal para iniciar um contêiner
+# PostgreSQL. Ele irá mapear a porta 5432 e usar o arquivo 'init.sql'
+# para popular o banco de dados na inicialização.
+#
+# Pré-requisito: Docker deve estar em execução na sua máquina.
+# =============================================================================
+
+docker run --name pg_prova_tecnica -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=aut_prova -p 5432:5432 -v "%cd%\init.sql:/docker-entrypoint-initdb.d/init.sql" -d postgres:13
+
+# --- Explicação do Comando ---
+# --name pg_prova_tecnica   -> Nomeia o contêiner para fácil referência.
+# -e POSTGRES_PASSWORD=...  -> Define a senha do superusuário do banco.
+# -e POSTGRES_DB=aut_prova  -> Cria um banco de dados chamado 'aut_prova'.
+# -p 5432:5432              -> Mapeia a porta do contêiner para a sua máquina.
+# -v "%cd%\init.sql:..."    -> Monta o script SQL local no diretório de inicialização do Docker.
+#                             O '%cd%' garante que o caminho absoluto do diretório atual seja usado.
+# -d postgres:13            -> Especifica a imagem do PostgreSQL e a executa em modo 'detached'.
